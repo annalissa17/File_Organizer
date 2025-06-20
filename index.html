@@ -26,13 +26,24 @@
         </div>
     </section>
 
-    <section class="drag__drop">
+    <section class="reorganizing">
         <div class="wrapper">
             <form action="">
-                <fieldset class="fieldset">
-                    <input type="file" webkitdirectory multiple>
+                <fieldset class="files">
+                    <input class="js_input_files" type="file" webkitdirectory multiple>
+                </fieldset>
+                <fieldset class="rename">
+                    <label for="file_prefix">Choisir un préfix pour vos fichiers</label>
+                    <input type="text" name="file_prefix" id="file_prefix">
+                </fieldset>
+                <fieldset class="folder">
+                    <label for="folder_name">Nommer le dossier</label>
+                    <input type="text" name="folder_name" id="folder_name">
+                    <button class="create_folder">Créer un dossier</button>
                 </fieldset>
             </form>
+
+            <ul class="display js_files_container"></ul>
         </div>
     </section>
 
