@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Organisateur de fichiers</title>
+  <script src="src/Main.js" defer></script>
 </head>
 <body>
 
@@ -14,12 +15,24 @@
     <section class="description">
         <div class="wrapper">
             <h2>Voici un outil qui vous aidera à organiser vos fichiers.</h2>
-            div.
+            <div class="fonctionnalite">
+                <p>Notre outil vous permettra de renommer vos fichiers, de les classer dans des dossiers différents, de zipper le dossier principal ainsi que de télécharger.</p>
+            </div>
             <div class="instructions">
                 <p>Pour des raisons de sécurité, il n'est pas possible pour cet outil d'accéder à vos fichiers sur votre ordinateur. 
                     Nous vous invitons donc à déposer les fichiers que vous souhaitez organiser et vous pourrez ensuite les télécharger.
                 </p>
             </div>
+        </div>
+    </section>
+
+    <section class="drag__drop">
+        <div class="wrapper">
+            <form action="">
+                <fieldset class="fieldset">
+                    <input type="file" webkitdirectory multiple>
+                </fieldset>
+            </form>
         </div>
     </section>
 
