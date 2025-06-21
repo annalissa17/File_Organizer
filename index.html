@@ -7,7 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   
+
+  <link rel="stylesheet" href="src/normalize.css">
   <link rel="stylesheet" href="src/styles.css">
+
 
   <script src="src/Main.js" defer></script>
 
@@ -16,19 +19,15 @@
 
     <header class="header">
         <div class="wrapper">
-            <a href="#" class="logo"></a>Logo
+            <img src="src/assets/logo.svg" alt="logo" width="100px" height="auto">
+            <a class="logo" href="#">Folderflow</a>
         </div>
     </header>
     
     <section class="description">
         <div class="wrapper">
-            <h2>Voici un outil qui vous aidera à organiser vos fichiers.</h2>
-            <div class="fonctionnalite">
-                <p>Notre outil vous permettra de renommer vos fichiers, de les classer dans des dossiers différents, de zipper le dossier principal ainsi que de télécharger.</p>
-                <p>Pour des raisons de sécurité, il n'est pas possible pour cet outil d'accéder à vos fichiers sur votre ordinateur. 
-                    Nous vous invitons donc à déposer les fichiers que vous souhaitez organiser et vous pourrez ensuite les télécharger.
-                </p>
-            </div>
+            <h2>Folderflow: Un outil de taille pour organiser vos fichiers</h2>
+            <p>Grâce à cet outil, vous pouvez importer un dossier complet depuis votre ordinateur, renommer vos fichiers selon vos préférences, les répartir dans différents dossiers virtuels, puis télécharger le tout sous forme d’un fichier ZIP. Idéal pour trier rapidement des documents, des images ou des projets.</p>
         </div>
     </section>
 
@@ -55,12 +54,22 @@
                 </fieldset>
             </form>
 
+            <h3>Aperçu des fichiers</h3>
+
             <div class="display">
-                <h4 class="js_provisory_text">Aucun fichier téléversé</h4>
-                <ul class="js_files_container"></ul>
+                <div class="container">
+                    <h4 class="js_provisory_text">Aucun fichier téléversé</h4>
+                    <ul class="js_files_container"></ul>
+                </div>
             </div>
         </div>
     </section>
+
+    <footer class="footer">
+        <div class="wrapper">
+            <p class="small">Projet étudiant réalisé en Juin 2025</p>
+        </div>
+    </footer>
 
 </body>
 </html> 
