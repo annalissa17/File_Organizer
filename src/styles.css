@@ -1,0 +1,81 @@
+body{
+    background-color: #E6E9ED;
+}
+
+/*Headings*/
+h2{
+    /*text-align: center;*/
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 45px;
+}
+h4{
+    display: block;
+    text-align: center;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 36px;
+}
+h5{
+    display: block;
+    font-family: "Quicksand", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+}
+
+p{
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    
+}
+
+/*Display des fichiers*/
+.reorganizing{
+    display: flex;
+}
+.display{
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding-top: 120px;
+    padding-bottom: 120px;
+    width: 75vw;
+    box-shadow: 10px 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+li{
+    list-style-type: none;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 18px;
+
+}
+
+/*Disparition*/
+.none{
+    display: none;
+}
+
+/*Labels et inputs*/
+label, input{
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+}
+
+/*Fieldset*/
+fieldset{
+    border: none;
+}

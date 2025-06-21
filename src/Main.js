@@ -3,6 +3,7 @@ class Main {
         this.files = []
         this.inputList = document.querySelectorAll('.js_input_files')
         this.filesContainer = document.querySelector('.js_files_container')
+        this.text = document.querySelector('.js_provisory_text')
 
         this.init()
     }
@@ -31,8 +32,9 @@ class Main {
 
         for (let i = 0; i < this.files.length; i++) {
             let file = this.files[i]
-
+            this.text.classList.add('none')
             let li = document.createElement('li')
+            //let img = document.createElement('img')
             li.textContent = file.webkitRelativePath || file.name
             this.filesContainer.appendChild(li)
         }

@@ -2,7 +2,15 @@
 <html>
 <head>
   <title>Organisateur de fichiers</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+  <link rel="stylesheet" href="src/styles.css">
+
   <script src="src/Main.js" defer></script>
+
 </head>
 <body>
 
@@ -17,8 +25,6 @@
             <h2>Voici un outil qui vous aidera à organiser vos fichiers.</h2>
             <div class="fonctionnalite">
                 <p>Notre outil vous permettra de renommer vos fichiers, de les classer dans des dossiers différents, de zipper le dossier principal ainsi que de télécharger.</p>
-            </div>
-            <div class="instructions">
                 <p>Pour des raisons de sécurité, il n'est pas possible pour cet outil d'accéder à vos fichiers sur votre ordinateur. 
                     Nous vous invitons donc à déposer les fichiers que vous souhaitez organiser et vous pourrez ensuite les télécharger.
                 </p>
@@ -32,18 +38,27 @@
                 <fieldset class="files">
                     <input class="js_input_files" type="file" webkitdirectory multiple>
                 </fieldset>
-                <fieldset class="rename">
+                <div class="actions">
+                    <h5>Que voulez-vous faire ensuite?</h5>
+                    <button>Créer un dossier</button>
+                    <button>Renommer mes fichiers</button>
+                </div>
+                
+                <fieldset class="rename none">
                     <label for="file_prefix">Choisir un préfix pour vos fichiers</label>
                     <input type="text" name="file_prefix" id="file_prefix">
                 </fieldset>
-                <fieldset class="folder">
+                <fieldset class="folder none">
                     <label for="folder_name">Nommer le dossier</label>
                     <input type="text" name="folder_name" id="folder_name">
                     <button class="create_folder">Créer un dossier</button>
                 </fieldset>
             </form>
 
-            <ul class="display js_files_container"></ul>
+            <div class="display">
+                <h4 class="js_provisory_text">Aucun fichier téléversé</h4>
+                <ul class="js_files_container"></ul>
+            </div>
         </div>
     </section>
 
