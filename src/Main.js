@@ -1,9 +1,14 @@
 class Main {
     constructor(){
         this.files = []
+        this.folders = []
+
         this.inputList = document.querySelectorAll('.js_input_files')
         this.filesContainer = document.querySelector('.js_files_container')
         this.text = document.querySelector('.js_provisory_text')
+        this.folderBtn = document.querySelector('.js_create_folder')
+        
+        console.log(this.folderBtn)
 
         this.init()
     }
@@ -13,8 +18,13 @@ class Main {
         this.inputList.forEach(function(input) {
             input.addEventListener('change', function(e) {
                 self.onFileChange(e.target.files);
-            });
-        });
+            })
+        })
+
+        this.folderBtn.addEventListener('click', function(e){
+            e.preventDefault()
+            self.createFolder()
+        })
     }
 
     onFileChange(fileList){
@@ -38,6 +48,28 @@ class Main {
             li.textContent = file.webkitRelativePath || file.name
             this.filesContainer.appendChild(li)
         }
+    }
+
+    //Création de dossiers
+
+    createFolder() {
+
+        let folderName = prompt("Nom du dossier ?");
+        let dossier = document.createElement('li');
+
+        console.log(folderName)
+
+        if (!folderName) return;
+
+        if (this.text && !this.text.classList.contains('none')) {
+            this.text.classList.add('none');
+        }
+
+        dossier.classList.add('folder');
+        dossier.innerHTML = `<strong>📁 ${folderName}</strong><ul class="folder-contents"></ul>`;
+        this.filesContainer.appendChild(dossier);
+
+        console.log('Folder created:', folderName);
     }
 }
 
