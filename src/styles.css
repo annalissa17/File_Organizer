@@ -163,8 +163,14 @@ fieldset{
     background-color: #f1f1f9;
 }
 
-/*Collapse Folders*/
+/*States*/
 
 .collapsed{
     display: none;
+}
+
+.selected {
+    border: 2px solid #6b5cc4;
+    border-radius: 4px;
+    background-color: #f3f0ff;
 }

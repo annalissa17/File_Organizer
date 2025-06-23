@@ -7,8 +7,11 @@ class Main {
         this.filesContainer = document.querySelector('.js_files_container')
         this.text = document.querySelector('.js_provisory_text')
         this.folderBtn = document.querySelector('.js_create_folder')
-        
-        console.log(this.folderBtn)
+        this.renameBtn = document.querySelector('.js_rename_file')
+
+        this.isRenaming = false;
+        this.renameIndex = -1;
+        this.renameItems = [];
 
         this.init()
     }
@@ -25,6 +28,60 @@ class Main {
             e.preventDefault()
             self.createFolder()
         })
+
+        this.renameBtn.addEventListener('click', function(e){
+            e.preventDefault()
+            self.isRenaming = true;
+            self.renameItems = Array.from(document.querySelectorAll('.file_item, .folder-header'));
+            self.renameIndex = 0;
+            alert('Utilisez les flèches pour sélectionner. Appuyez sur Entrée pour renommer.');
+            self.updateRenameHighlight();
+            
+        })
+
+        //KEY INPUT
+
+        document.addEventListener('keydown', (e) => {
+            if (!this.isRenaming || this.renameItems.length === 0) return;
+
+            if (e.key === 's' || e.key === 'd') {
+                this.renameIndex = (this.renameIndex + 1) % this.renameItems.length;
+                this.updateRenameHighlight();
+                console.log(this.renameIndex)
+            }
+
+            if (e.key === 'w' || e.key === 'a') {
+                this.renameIndex = (this.renameIndex - 1 + this.renameItems.length) % this.renameItems.length;
+                this.updateRenameHighlight();
+                console.log(this.renameIndex)
+            }
+
+            if (e.key === 'Enter') {
+                const current = this.renameItems[this.renameIndex];
+                let oldName = current.textContent.trim().replace(/^📁 /, '');
+                const newName = prompt("Nouveau nom :", oldName);
+                if (newName) {
+                    if (current.classList.contains('folder-header')) {
+                        current.innerHTML = `<strong>📁 ${newName}</strong>`;
+                    } else {
+                        current.textContent = newName;
+                    }
+                }
+                this.isRenaming = false;
+                this.renameItems = [];
+                this.renameIndex = -1;
+                this.updateRenameHighlight();
+            }
+
+            if (e.key === 'Escape') {
+                this.isRenaming = false;
+                this.renameItems = [];
+                this.renameIndex = -1;
+                this.updateRenameHighlight();
+                console.log('Renommage annulé');
+            }
+        });
+
     }
 
     onFileChange(fileList){
@@ -98,6 +155,15 @@ class Main {
 
         console.log('Folder created:', folderName)
         //console.log(folderContent)
+    }
+
+    updateRenameHighlight(){
+        console.log('allo')
+        this.renameItems.forEach((item, index)=>{
+            item.classList.toggle('selected', index === this.renameIndex)
+        })
+
+        
     }
 
 }
