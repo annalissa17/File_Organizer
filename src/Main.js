@@ -8,8 +8,10 @@ class Main {
         this.text = document.querySelector('.js_provisory_text')
         this.folderBtn = document.querySelector('.js_create_folder')
         this.renameBtn = document.querySelector('.js_rename_file')
+        this.deleteBtn = document.querySelector('.js_delete_file')
 
         this.isRenaming = false;
+        this.isDeleting = false
         this.renameIndex = -1;
         this.renameItems = [];
 
@@ -39,48 +41,101 @@ class Main {
             
         })
 
+        this.deleteBtn.addEventListener('click', function(e){
+            e.preventDefault()
+            self.isDeleting = true
+            self.renameItems = Array.from(document.querySelectorAll('.file_item, .folder-header'))
+            self.renameIndex = 0
+            alert('Utilisez les flèches pour sélectionner un fichier puis appuyez sur Entrée pour supprimer. Attention: la suppression est permanente.')
+            self.updateRenameHighlight()
+            console.log(self.isDeleting)
+        })
+
         //KEY INPUT
 
-        document.addEventListener('keydown', (e) => {
-            if (!this.isRenaming || this.renameItems.length === 0) return;
+        
+        document.addEventListener('keydown', function(e) {
+            console.log('allo')
+            // prevent key interference if typing in a text field
+            if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
 
-            if (e.key === 's' || e.key === 'd') {
-                this.renameIndex = (this.renameIndex + 1) % this.renameItems.length;
-                this.updateRenameHighlight();
-                console.log(this.renameIndex)
+            if (!self.isRenaming && !self.isDeleting) return;
+
+            // Move selection
+            if (e.key === 's' || e.key === 'd' || e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                self.renameIndex = (self.renameIndex + 1) % self.renameItems.length;
+                self.updateRenameHighlight();
+                return;
             }
 
-            if (e.key === 'w' || e.key === 'a') {
-                this.renameIndex = (this.renameIndex - 1 + this.renameItems.length) % this.renameItems.length;
-                this.updateRenameHighlight();
-                console.log(this.renameIndex)
+            if (e.key === 'w' || e.key === 'a' || e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                self.renameIndex = (self.renameIndex - 1 + self.renameItems.length) % self.renameItems.length;
+                self.updateRenameHighlight();
+                return;
             }
 
-            if (e.key === 'Enter') {
-                const current = this.renameItems[this.renameIndex];
+            // Rename mode: Enter triggers prompt
+            if (self.isRenaming && e.key === 'Enter') {
+                let current = self.renameItems[self.renameIndex];
                 let oldName = current.textContent.trim().replace(/^📁 /, '');
-                const newName = prompt("Nouveau nom :", oldName);
+                let newName = prompt("Nouveau nom :", oldName);
                 if (newName) {
-                    if (current.classList.contains('folder-header')) {
+                    if (current.classList.contains('js_folder_header')) {
                         current.innerHTML = `<strong>📁 ${newName}</strong>`;
                     } else {
                         current.textContent = newName;
                     }
                 }
-                this.isRenaming = false;
-                this.renameItems = [];
-                this.renameIndex = -1;
-                this.updateRenameHighlight();
-            }
 
-            if (e.key === 'Escape') {
-                this.isRenaming = false;
-                this.renameItems = [];
-                this.renameIndex = -1;
-                this.updateRenameHighlight();
-                console.log('Renommage annulé');
+                // Delay to prevent Enter from retriggering
+                setTimeout(function () {
+                    self.isRenaming = false;
+                    self.renameItems = [];
+                    self.renameIndex = -1;
+                    self.updateRenameHighlight();
+                }, 10);
+
+        return;
+    }
+
+    // Delete mode: Enter confirms deletion
+    if (self.isDeleting && e.key === 'Enter') {
+        let current = self.renameItems[self.renameIndex];
+        if (!current) return;
+
+        let confirmDelete = confirm("Supprimer cet élément ?");
+        if (confirmDelete) {
+            let parentLi = current.closest('li');
+            if (parentLi) {
+                parentLi.remove();
+            } else {
+                current.remove();
             }
-        });
+        }
+
+        // Exit delete mode
+        setTimeout(function () {
+            self.isDeleting = false;
+            self.renameItems = [];
+            self.renameIndex = -1;
+            self.updateRenameHighlight();
+        }, 10);
+
+        return;
+    }
+
+    // Escape: cancel both modes
+    if (e.key === 'Escape') {
+        self.isRenaming = false;
+        self.isDeleting = false;
+        self.renameItems = [];
+        self.renameIndex = -1;
+        self.updateRenameHighlight();
+        console.log('Action annulée');
+        return;
+    }
+});
+
 
     }
 
@@ -158,12 +213,9 @@ class Main {
     }
 
     updateRenameHighlight(){
-        console.log('allo')
         this.renameItems.forEach((item, index)=>{
             item.classList.toggle('selected', index === this.renameIndex)
         })
-
-        
     }
 
 }
