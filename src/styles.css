@@ -147,3 +147,17 @@ label, input{
 fieldset{
     border: none;
 }
+
+/*Drag and drop*/
+
+.folder-contents {
+    min-height: 20px;
+    padding: 10px;
+    border: 2px dashed transparent;
+    transition: border-color 0.3s ease;
+}
+
+.folder-contents.dragover {
+    border-color: #6b5cc4;
+    background-color: #f1f1f9;
+}
