@@ -69,7 +69,7 @@ class Main {
         }
 
         dossier.classList.add('folder')
-        dossier.innerHTML = `<strong>📁 ${folderName}</strong><ul class="folder-contents"></ul>`
+        dossier.innerHTML = `<div class="js_folder_header"><strong>📁 ${folderName}</strong></div><ul class="folder-contents"></ul>`
         this.filesContainer.appendChild(dossier)
 
         let folderContent = dossier.querySelector('.folder-contents')
@@ -88,6 +88,12 @@ class Main {
                 folderContent.appendChild(fileEl)
                 console.log(folderContent)
             }
+        })
+
+        let folderCollapse = document.querySelector('.js_folder_header')
+        folderCollapse.addEventListener('click', function(){
+            folderContent.classList.toggle('collapsed')
+            console.log('collapsed')
         })
 
         console.log('Folder created:', folderName)

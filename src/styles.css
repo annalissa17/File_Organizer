@@ -151,6 +151,7 @@ fieldset{
 /*Drag and drop*/
 
 .folder-contents {
+    display: block;
     min-height: 20px;
     padding: 10px;
     border: 2px dashed transparent;
@@ -160,4 +161,10 @@ fieldset{
 .folder-contents.dragover {
     border-color: #6b5cc4;
     background-color: #f1f1f9;
+}
+
+/*Collapse Folders*/
+
+.collapsed{
+    display: none;
 }
