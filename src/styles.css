@@ -121,6 +121,8 @@ button:hover{
 
 
 
+
+
 li{
     list-style-type: none;
     font-family: "Open Sans", sans-serif;
@@ -175,4 +177,26 @@ fieldset{
     border: 2px solid #bdb991;
     border-radius: 4px;
     background-color: #f3f0ff;
+}
+
+@media (max-width: 800px) {
+  h2{
+    font-size: 40px;
+  }
+  h3{
+      font-size: 35px;
+  }
+  h4{
+      font-size: 30px;
+  }
+  h5{
+      font-size: 28px;
+  }  
+  p{
+      font-size: 16px;
+      
+  }  
+  .logo{
+      font-size: 18px;
+  }
 }
