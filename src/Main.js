@@ -234,35 +234,46 @@ class Main {
     downloadFiles() {
     let zip = new JSZip();
 
-    // Add loose files (not in folders)
-    let looseFiles = document.querySelectorAll('.file_item');
+    // Add loose files (not in any folder)
+    let looseFiles = Array.from(document.querySelectorAll('.file_item')).filter((fileEl) => {
+        return !fileEl.closest('.folder'); // skip files already in folders
+    });
+
     looseFiles.forEach((fileEl) => {
-        let filename = fileEl.dataset.filename;
-        let fileObj = this.files.find(f => f.name === filename);
+        let originalName = fileEl.dataset.filename;
+        let fileObj = this.files.find(f => f.name === originalName);
+        let displayedName = fileEl.textContent.trim();
+
         if (fileObj) {
-            zip.file(filename, fileObj);
+            zip.file(displayedName, fileObj);
         }
     });
 
-    // Add folders
+    // Add folders and their contents
     let folderEls = document.querySelectorAll('.folder');
     folderEls.forEach((folderEl) => {
-        let folderName = folderEl.querySelector('.js_folder_header').textContent.replace(/^📁 /, '').trim();
+        let folderHeader = folderEl.querySelector('.js_folder_header');
+        if (!folderHeader) return;
+
+        let folderName = folderHeader.textContent.replace(/^📁 /, '').trim();
         let folderContents = folderEl.querySelectorAll('.file_item');
+
         folderContents.forEach((fileEl) => {
-            let filename = fileEl.dataset.filename;
-            let fileObj = this.files.find(f => f.name === filename);
+            let originalName = fileEl.dataset.filename;
+            let fileObj = this.files.find(f => f.name === originalName);
+            let displayedName = fileEl.textContent.trim();
+
             if (fileObj) {
-                zip.folder(folderName).file(filename, fileObj);
+                zip.folder(folderName).file(displayedName, fileObj);
             }
         });
     });
 
-    // Generate and download
+    // Generate and download the zip
     zip.generateAsync({ type: "blob" }).then((content) => {
         let a = document.createElement('a');
         a.href = URL.createObjectURL(content);
-        a.download = 'mes_fichiers.zip';
+        a.download = 'folder_flow_download.zip';
         a.click();
     });
 }
