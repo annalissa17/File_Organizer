@@ -6,3 +6,5 @@ Fonctionnalités:
 - Renommer les fichiers et dossiers
 - Suppression de fichiers
 - Téléchargement d'un zip
+
+Fait en HTML/CSS/JS
