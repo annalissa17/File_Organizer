@@ -37,7 +37,7 @@ class Main {
             self.isRenaming = true;
             self.renameItems = Array.from(document.querySelectorAll('.file_item, .folder-header'));
             self.renameIndex = 0;
-            alert('Utilisez les flèches pour sélectionner. Appuyez sur Entrée pour renommer.');
+            alert('Utilisez WASD pour sélectionner. Appuyez sur Entrée pour renommer.');
             self.updateRenameHighlight();
             
         })
@@ -47,7 +47,7 @@ class Main {
             self.isDeleting = true
             self.renameItems = Array.from(document.querySelectorAll('.file_item, .folder-header'))
             self.renameIndex = 0
-            alert('Utilisez les flèches pour sélectionner un fichier puis appuyez sur Entrée pour supprimer. Attention: la suppression est permanente.')
+            alert('Utilisez WASD pour sélectionner un fichier puis appuyez sur Entrée pour supprimer. Attention: la suppression est permanente.')
             self.updateRenameHighlight()
             console.log(self.isDeleting)
         })
