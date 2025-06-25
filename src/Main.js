@@ -9,6 +9,7 @@ class Main {
         this.folderBtn = document.querySelector('.js_create_folder')
         this.renameBtn = document.querySelector('.js_rename_file')
         this.deleteBtn = document.querySelector('.js_delete_file')
+        this.downloadBtn = document.querySelector('.js_download_zip')
 
         this.isRenaming = false;
         this.isDeleting = false
@@ -49,6 +50,18 @@ class Main {
             alert('Utilisez les flèches pour sélectionner un fichier puis appuyez sur Entrée pour supprimer. Attention: la suppression est permanente.')
             self.updateRenameHighlight()
             console.log(self.isDeleting)
+        })
+
+        this.downloadBtn.addEventListener('click', function(e){
+            e.preventDefault()
+            
+            if(self.files.length == 0){
+                alert('Veuillez téléverser au moins un fichier.')
+            }
+
+            else{
+                self.downloadFiles()
+            }
         })
 
         //KEY INPUT
@@ -217,6 +230,43 @@ class Main {
             item.classList.toggle('selected', index === this.renameIndex)
         })
     }
+
+    downloadFiles() {
+    let zip = new JSZip();
+
+    // Add loose files (not in folders)
+    let looseFiles = document.querySelectorAll('.file_item');
+    looseFiles.forEach((fileEl) => {
+        let filename = fileEl.dataset.filename;
+        let fileObj = this.files.find(f => f.name === filename);
+        if (fileObj) {
+            zip.file(filename, fileObj);
+        }
+    });
+
+    // Add folders
+    let folderEls = document.querySelectorAll('.folder');
+    folderEls.forEach((folderEl) => {
+        let folderName = folderEl.querySelector('.js_folder_header').textContent.replace(/^📁 /, '').trim();
+        let folderContents = folderEl.querySelectorAll('.file_item');
+        folderContents.forEach((fileEl) => {
+            let filename = fileEl.dataset.filename;
+            let fileObj = this.files.find(f => f.name === filename);
+            if (fileObj) {
+                zip.folder(folderName).file(filename, fileObj);
+            }
+        });
+    });
+
+    // Generate and download
+    zip.generateAsync({ type: "blob" }).then((content) => {
+        let a = document.createElement('a');
+        a.href = URL.createObjectURL(content);
+        a.download = 'mes_fichiers.zip';
+        a.click();
+    });
+}
+
 
 }
 
